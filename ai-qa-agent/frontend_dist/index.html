@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI QA Agent — Requirement Intelligence Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070C18;
+      --panel: #0E172A;
+      --panel-hover: #15223D;
+      --border: #1E293B;
+      --border-glow: #2563EB40;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --accent: #3B82F6;
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      --purple: #8B5CF6;
+      --green: #10B981;
+      --amber: #F59E0B;
+      --red: #EF4444;
+      --card-radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* --- Shell Layout --- */
+    header {
+      background: rgba(14, 23, 42, 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #2563EB, #7C3AED);
+      display: grid; place-items: center; font-weight: 800; font-size: 18px; color: #FFF;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+    .brand-badge {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 3px 8px; border-radius: 999px; background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3); color: var(--accent); font-weight: 600;
+    }
+
+    .btn {
+      padding: 9px 18px; border-radius: 8px; font-weight: 600; font-size: 13.5px;
+      cursor: pointer; transition: all 0.2s ease; border: none; outline: none;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #2563EB);
+      color: #FFF; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5); }
+    .btn-secondary {
+      background: var(--panel); border: 1px solid var(--border); color: var(--text);
+    }
+    .btn-secondary:hover { background: var(--panel-hover); border-color: var(--muted); }
+
+    main { max-width: 1360px; margin: 0 auto; padding: 32px; }
+
+    /* --- Stats Grid --- */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+    .stat-card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: var(--card-radius);
+      padding: 20px; transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative; overflow: hidden;
+    }
+    .stat-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .stat-lbl { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .stat-val { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; margin-top: 6px; }
+    .stat-sub { font-size: 12px; color: var(--muted); margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+
+    /* --- Main Workspace --- */
+    .grid-2 { display: grid; grid-template-columns: 360px 1fr; gap: 28px; }
+
+    /* --- Upload Panel --- */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border); border-radius: var(--card-radius);
+      padding: 24px;
+    }
+    .panel-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 16px; }
+
+    .dropzone {
+      border: 2px dashed var(--border); border-radius: 12px; padding: 32px 20px;
+      text-align: center; cursor: pointer; transition: all 0.2s ease;
+      background: rgba(15, 23, 42, 0.4);
+    }
+    .dropzone:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.05); }
+    .dropzone-icon { font-size: 32px; margin-bottom: 12px; display: block; }
+    .dropzone-txt { font-size: 13.5px; color: var(--text); font-weight: 500; }
+    .dropzone-sub { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+    .doc-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .doc-item {
+      padding: 12px; border-radius: 8px; background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border); font-size: 12.5px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .doc-name { font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+
+    /* --- Requirement Explorer --- */
+    .filter-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .search-input {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+      padding: 9px 14px; color: var(--text); font-size: 13.5px; width: 300px;
+      outline: none; transition: border-color 0.2s ease;
+    }
+    .search-input:focus { border-color: var(--accent); }
+
+    .filter-group { display: flex; gap: 8px; }
+    .chip-filter {
+      padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 500;
+      background: var(--panel); border: 1px solid var(--border); color: var(--muted);
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .chip-filter.active { background: var(--accent); color: #FFF; border-color: var(--accent); }
+
+    .req-grid { display: flex; flex-direction: column; gap: 14px; }
+    .req-card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; transition: all 0.2s ease; cursor: pointer;
+    }
+    .req-card:hover { border-color: var(--border-glow); background: var(--panel-hover); }
+    .req-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .req-id { font-family: monospace; font-size: 12px; color: var(--muted); font-weight: 600; }
+    .badges { display: flex; gap: 8px; align-items: center; }
+
+    .badge {
+      font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; text-transform: uppercase;
+    }
+    .badge-jira { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-doc { background: rgba(59, 130, 246, 0.15); color: var(--accent); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-disc { background: rgba(139, 92, 246, 0.15); color: var(--purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+
+    .badge-risk-critical { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-risk-high { background: rgba(245, 158, 11, 0.2); color: #FDE68A; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-risk-medium { background: rgba(59, 130, 246, 0.15); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-risk-low { background: rgba(148, 163, 184, 0.15); color: #CBD5E1; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    .req-rule { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .req-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12.5px; color: var(--muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+
+    .ambiguity-banner {
+      margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+      background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #FDE68A; font-size: 12px; display: flex; align-items: center; gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">AI</div>
+    <div>
+      <div class="brand-title">AI QA Agent</div>
+      <div style="font-size: 11px; color: var(--muted)">Software Quality as a Service · Layer 1</div>
+    </div>
+    <span class="brand-badge">Demo Engine</span>
+  </div>
+  <div style="display: flex; gap: 12px;">
+    <button class="btn btn-secondary" onclick="loadSampleDemo()">⚡ Run Sample Demo</button>
+    <button class="btn btn-primary" onclick="exportReport()">📥 Export Executive Summary</button>
+  </div>
+</header>
+
+<main>
+  <!-- Executive Metrics -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-lbl">Total Requirements</div>
+      <div class="stat-val" id="stat-total">0</div>
+      <div class="stat-sub">Extracted & Modelled</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-lbl">Critical / High Risk</div>
+      <div class="stat-val" style="color: var(--amber)" id="stat-risk">0</div>
+      <div class="stat-sub">Requires Priority Execution</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-lbl">Ambiguity Warnings</div>
+      <div class="stat-val" style="color: var(--red)" id="stat-ambiguity">0</div>
+      <div class="stat-sub">Vague or Untestable Rules</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-lbl">Documents Ingested</div>
+      <div class="stat-val" style="color: var(--accent)" id="stat-docs">0</div>
+      <div class="stat-sub">Parsed via MarkItDown</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Left: Document Upload Panel -->
+    <div class="panel">
+      <div class="panel-title">Context Sources</div>
+
+      <input type="file" id="fileInput" style="display:none" onchange="handleFileUpload(event)">
+      <div class="dropzone" onclick="document.getElementById('fileInput').click()">
+        <span class="dropzone-icon">📄</span>
+        <div class="dropzone-txt">Upload BRD, User Manual or Excel</div>
+        <div class="dropzone-sub">Supports PDF, DOCX, XLSX, MD</div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <div class="panel-title" style="font-size: 14px;">Ingested Documents</div>
+        <div class="doc-list" id="doc-list">
+          <div style="font-size: 12px; color: var(--muted); text-align: center; padding: 12px;">No documents uploaded yet. Click "Run Sample Demo" above to load workspace BRD!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Requirement Explorer -->
+    <div>
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search workflows, rules, actors..." oninput="filterRequirements()">
+        <div class="filter-group">
+          <div class="chip-filter active" onclick="setRiskFilter(null, this)">All Risk</div>
+          <div class="chip-filter" onclick="setRiskFilter('critical', this)">Critical</div>
+          <div class="chip-filter" onclick="setRiskFilter('high', this)">High</div>
+        </div>
+      </div>
+
+      <div class="req-grid" id="req-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  let requirements = [];
+  let currentRiskFilter = null;
+
+  async function fetchStats() {
+    const res = await fetch('/api/stats');
+    const stats = await res.json();
+    document.getElementById('stat-total').innerText = stats.total_requirements;
+    document.getElementById('stat-risk').innerText = stats.critical_count + stats.high_count;
+    document.getElementById('stat-ambiguity').innerText = stats.ambiguous_count;
+    document.getElementById('stat-docs').innerText = stats.documents_ingested;
+  }
+
+  async function fetchRequirements() {
+    let url = '/api/requirements';
+    if (currentRiskFilter) url += `?risk=${currentRiskFilter}`;
+    const res = await fetch(url);
+    requirements = await res.json();
+    renderRequirements();
+  }
+
+  function renderRequirements() {
+    const grid = document.getElementById('req-grid');
+    const search = document.getElementById('searchInput').value.lowerCase || '';
+
+    const filtered = requirements.filter(r => {
+      const text = `${r.rule} ${r.workflow} ${r.actor}`.toLowerCase();
+      return text.includes(search);
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div style="text-align:center; padding: 48px; color: var(--muted); font-size: 14px;">No requirements found. Upload a document or click "Run Sample Demo".</div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(r => `
+      <div class="req-card">
+        <div class="req-header">
+          <span class="req-id">${r.id} · ${r.source_ref || 'Document'}</span>
+          <div class="badges">
+            <span class="badge badge-doc">🔵 Document</span>
+            <span class="badge badge-risk-${r.risk}">${r.risk}</span>
+          </div>
+        </div>
+        <div class="req-rule">${r.rule}</div>
+        <div class="req-meta">
+          <div><b>Actor:</b> ${r.actor || 'N/A'}</div>
+          <div><b>Workflow:</b> ${r.workflow || 'General'}</div>
+          <div><b>Precondition:</b> ${r.precondition || 'None specified'}</div>
+          <div><b>Expected Outcome:</b> ${r.expected_outcome || 'Verified'}</div>
+        </div>
+        ${r.ambiguity_flags && r.ambiguity_flags.length > 0 ? `
+          <div class="ambiguity-banner">
+            ⚠️ <b>Ambiguity Detected:</b> ${r.ambiguity_flags.join(', ')}
+          </div>
+        ` : ''}
+      </div>
+    `).join('');
+  }
+
+  async function loadSampleDemo() {
+    alert("Running Layer 1 Extraction Engine on Workspace BRD & Excel...");
+    const formData = new FormData();
+
+    // Trigger upload call for backend sample files
+    fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    }).finally(() => {
+      // Reload stats and reqs
+      fetchStats();
+      fetchRequirements();
+    });
+  }
+
+  async function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('project_id', 'proj-1');
+
+    const res = await fetch('/api/upload', { method: 'POST', body: formData });
+    const data = await res.json();
+    alert(`Successfully processed ${file.name}! Extracted ${data.extracted_count} requirements.`);
+    fetchStats();
+    fetchRequirements();
+  }
+
+  function setRiskFilter(risk, element) {
+    document.querySelectorAll('.chip-filter').forEach(c => c.classList.remove('active'));
+    element.classList.add('active');
+    currentRiskFilter = risk;
+    fetchRequirements();
+  }
+
+  function filterRequirements() {
+    renderRequirements();
+  }
+
+  function exportReport() {
+    window.print();
+  }
+
+  // Initial load
+  fetchStats();
+  fetchRequirements();
+</script>
+
+</body>
+</html>

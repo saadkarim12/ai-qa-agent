@@ -210,7 +210,22 @@ async def get_stats():
     }
 
 
+from fastapi.responses import FileResponse
+
 # Mount Static Frontend
-STATIC_DIR = Path(__file__).resolve().parent.parent / "frontend_dist"
+# Path: ai-qa-agent/frontend_dist
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+STATIC_DIR = BASE_DIR / "frontend_dist"
+
+
+@app.get("/", response_class=FileResponse)
+async def serve_index():
+    index_file = STATIC_DIR / "index.html"
+    if index_file.exists():
+        return FileResponse(index_file)
+    raise HTTPException(status_code=404, detail="Frontend index.html not found")
+
+
 if STATIC_DIR.exists():
-    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+

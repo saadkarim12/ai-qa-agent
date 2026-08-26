@@ -89,7 +89,24 @@ async def preload_sample_data():
     print("==========================================================")
 
 
+import socket
+import subprocess
+
+def free_port(port: int = 8000):
+    """Ensure port is available by terminating lingering python server processes if needed."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        if s.connect_ex(("localhost", port)) == 0:
+            print(f"⚠️ Port {port} in use. Clearing lingering demo server process...")
+            try:
+                out = subprocess.check_output(["lsof", "-t", f"-i:{port}"]).decode().strip()
+                for pid in out.splitlines():
+                    if pid.isdigit():
+                        subprocess.run(["kill", "-9", pid], check=False)
+            except Exception:
+                pass
+
 def main():
+    free_port(8000)
     # Preload data synchronously before server start
     asyncio.run(preload_sample_data())
 
@@ -103,3 +120,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

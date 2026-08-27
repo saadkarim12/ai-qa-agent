@@ -1,0 +1,9 @@
+{
+  "issues": [
+    { "key": "BAD-1", "fields": { "summary": "" } },
+    { "key": "BAD-2" },
+    { "fields": { "summary": "Issue with no key at all", "priority": {"name": "High"} } },
+    "this is a string where an object was expected",
+    { "key": "BAD-5", "fields": { "summary": "Valid enough", "acceptance_criteria": "Given an active account, when the user signs in, then the dashboard is displayed.", "priority": {"name": "Highest"}, "components": [{"name": "Authentication"}] } }
+  ]
+}

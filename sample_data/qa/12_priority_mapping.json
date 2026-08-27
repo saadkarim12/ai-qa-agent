@@ -1,0 +1,9 @@
+{
+  "issues": [
+    {"key": "PRI-1", "fields": {"summary": "Blocker item", "acceptance_criteria": "Given a state, when an action occurs, then a result is shown.", "priority": {"name": "Blocker"}, "components": [{"name": "Core"}]}},
+    {"key": "PRI-2", "fields": {"summary": "Major item", "acceptance_criteria": "Given a state, when an action occurs, then a result is shown.", "priority": {"name": "Major"}, "components": [{"name": "Core"}]}},
+    {"key": "PRI-3", "fields": {"summary": "Normal item", "acceptance_criteria": "Given a state, when an action occurs, then a result is shown.", "priority": {"name": "Normal"}, "components": [{"name": "Core"}]}},
+    {"key": "PRI-4", "fields": {"summary": "Trivial item", "acceptance_criteria": "Given a state, when an action occurs, then a result is shown.", "priority": {"name": "Trivial"}, "components": [{"name": "Core"}]}},
+    {"key": "PRI-5", "fields": {"summary": "Cosmetic footer colour change on the payment page", "acceptance_criteria": "Given the payment page, when it renders, then the footer colour matches the brand palette.", "components": [{"name": "Core"}]}}
+  ]
+}

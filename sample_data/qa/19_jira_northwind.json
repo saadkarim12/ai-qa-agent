@@ -1,0 +1,197 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 14,
+  "issues": [
+    {
+      "id": "10401",
+      "key": "NWB-101",
+      "fields": {
+        "summary": "Customer can sign in with email and password",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Highest"},
+        "components": [{"name": "Authentication"}],
+        "labels": ["release-7.1", "security"],
+        "reporter": {"displayName": "Priya Raman"},
+        "description": "As a Registered Customer, I want to sign in with my email address and password so that I can view my accounts.",
+        "acceptance_criteria": "Given an active account, when the customer submits a correct email and password, then the accounts overview is displayed."
+      }
+    },
+    {
+      "id": "10402",
+      "key": "NWB-102",
+      "fields": {
+        "summary": "Account locks after five failed sign-in attempts",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Highest"},
+        "components": [{"name": "Authentication"}],
+        "labels": ["release-7.1", "security"],
+        "description": "Brute-force protection required by the security review.",
+        "acceptance_criteria": "Given an active account, when the customer submits an incorrect password five times in a row, then the account is locked for 30 minutes and a lockout notice is displayed."
+      }
+    },
+    {
+      "id": "10403",
+      "key": "NWB-103",
+      "fields": {
+        "summary": "Unregistered email must not be disclosed",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "In Review"},
+        "priority": {"name": "High"},
+        "components": [{"name": "Authentication"}],
+        "labels": ["privacy"],
+        "description": "Account enumeration was raised in the last penetration test.",
+        "acceptance_criteria": "When the customer submits an email address that is not registered, then a generic invalid credentials message is shown and account existence is not disclosed."
+      }
+    },
+    {
+      "id": "10404",
+      "key": "NWB-110",
+      "fields": {
+        "summary": "Password reset link expires after 30 minutes",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "High"},
+        "components": [{"name": "Authentication"}],
+        "description": "As a Registered Customer, I want an expired reset link to be refused so that an intercepted email cannot be reused.",
+        "acceptance_criteria": "Given a reset link issued more than 30 minutes ago, when the customer opens it, then the link is rejected as expired and a new link can be requested."
+      }
+    },
+    {
+      "id": "10405",
+      "key": "NWB-111",
+      "fields": {
+        "summary": "New password must be at least 12 characters",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "High"},
+        "components": [{"name": "Authentication"}],
+        "description": "Aligns with the updated password policy.",
+        "acceptance_criteria": "Given a valid reset link, when the customer submits a new password of at least 12 characters, then the password is updated and all other sessions are signed out."
+      }
+    },
+    {
+      "id": "10406",
+      "key": "NWB-201",
+      "fields": {
+        "summary": "Customer can transfer funds between their own accounts",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Blocker"},
+        "components": [{"name": "Payments"}],
+        "labels": ["release-7.1"],
+        "description": "As a Registered Customer, I want to move money between my accounts so that I can manage my balances.",
+        "acceptance_criteria": "Given two active accounts, when the customer transfers an amount within the available balance, then both balances are updated and a confirmation reference is displayed."
+      }
+    },
+    {
+      "id": "10407",
+      "key": "NWB-202",
+      "fields": {
+        "summary": "Transfer is rejected when funds are insufficient",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Blocker"},
+        "components": [{"name": "Payments"}],
+        "description": "Overdraft is not supported in this release.",
+        "acceptance_criteria": "Given a source account with a balance below the transfer amount, when the customer submits the transfer, then the transfer is rejected and no balance changes."
+      }
+    },
+    {
+      "id": "10408",
+      "key": "NWB-203",
+      "fields": {
+        "summary": "Transfer amount must be greater than zero",
+        "issuetype": {"name": "Bug"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "High"},
+        "components": [{"name": "Payments"}],
+        "description": "A zero-value transfer currently produces a confirmation screen with no reference number.",
+        "acceptance_criteria": "When the transfer amount is zero or negative, then submission is blocked with a field-level validation message."
+      }
+    },
+    {
+      "id": "10409",
+      "key": "NWB-210",
+      "fields": {
+        "summary": "Amount is a mandatory field on the transfer form",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Major"},
+        "components": [{"name": "Payments"}],
+        "description": "The amount field must be completed before a transfer can be submitted.",
+        "acceptance_criteria": "Given the transfer form is displayed, when the customer submits it without an amount, then submission is blocked and the amount field is reported as required."
+      }
+    },
+    {
+      "id": "10410",
+      "key": "NWB-301",
+      "fields": {
+        "summary": "Audit log is restricted to administrator accounts",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Highest"},
+        "components": [{"name": "Administration"}],
+        "labels": ["security", "compliance"],
+        "description": "As an Administrator, I want the audit log restricted to administrator accounts so that customer data stays protected.",
+        "acceptance_criteria": "Given a standard-role customer, when they navigate directly to /admin, then an access-denied response is returned and no audit data is rendered."
+      }
+    },
+    {
+      "id": "10411",
+      "key": "NWB-302",
+      "fields": {
+        "summary": "Administrator can open the audit log",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Major"},
+        "components": [{"name": "Administration"}],
+        "description": "Counterpart to NWB-301.",
+        "acceptance_criteria": "Given an administrator account, when they open /admin, then the audit log is displayed with the most recent entries first."
+      }
+    },
+    {
+      "id": "10412",
+      "key": "NWB-401",
+      "fields": {
+        "summary": "Customer can download a statement for a date range",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Ready for QA"},
+        "priority": {"name": "Normal"},
+        "components": [{"name": "Reporting"}],
+        "description": "As a Registered Customer, I want to download a statement so that I can keep my own records.",
+        "acceptance_criteria": "Given at least one transaction, when the customer requests a statement for a date range, then a statement containing only that customer's transactions is downloaded."
+      }
+    },
+    {
+      "id": "10413",
+      "key": "NWB-402",
+      "fields": {
+        "summary": "Improve statement performance",
+        "issuetype": {"name": "Task"},
+        "status": {"name": "Backlog"},
+        "priority": {"name": "Low"},
+        "components": [{"name": "Reporting"}],
+        "labels": ["needs-refinement"],
+        "description": "The statements screen should be faster and handle large date ranges appropriately. Users have complained. TBD what the target is.",
+        "acceptance_criteria": "Statements should load quickly and behave properly, etc."
+      }
+    },
+    {
+      "id": "10414",
+      "key": "NWB-501",
+      "fields": {
+        "summary": "Customer can control which emails they receive",
+        "issuetype": {"name": "Story"},
+        "status": {"name": "Backlog"},
+        "priority": {"name": "Normal"},
+        "components": [{"name": "Notifications"}],
+        "description": "As a Registered Customer, I want to control which emails I receive so that I am not spammed.",
+        "acceptance_criteria": ""
+      }
+    }
+  ]
+}

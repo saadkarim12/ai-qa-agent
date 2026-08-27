@@ -1,0 +1,33 @@
+{
+  "issues": [
+    {
+      "key": "SHOP-1423",
+      "fields": {
+        "summary": "Billing address must be validated before payment authorisation",
+        "description": "As a Customer, I want the billing address checked before my card is charged so that failed payments do not leave orders in a broken state.",
+        "acceptance_criteria": "Given a basket with at least one item, when the customer submits the payment form without a billing address, then submission is blocked with a field-level validation message.",
+        "priority": {"name": "Highest"},
+        "components": [{"name": "Checkout"}]
+      }
+    },
+    {
+      "key": "SHOP-1451",
+      "fields": {
+        "summary": "Standard users must not reach admin routes",
+        "description": "Route-level authorisation is currently client-side only.",
+        "acceptance_criteria": "Given a standard-role user, when they navigate directly to /admin, then they receive an access-denied response and no administrative data is rendered.",
+        "priority": {"name": "Highest"},
+        "components": [{"name": "User Management"}]
+      }
+    },
+    {
+      "key": "SHOP-1502",
+      "fields": {
+        "summary": "Improve the reporting screen",
+        "description": "The reporting screen should be faster and handle large date ranges appropriately. Users have complained.",
+        "priority": {"name": "Low"},
+        "components": [{"name": "Reporting"}]
+      }
+    }
+  ]
+}

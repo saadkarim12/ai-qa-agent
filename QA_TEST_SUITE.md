@@ -82,7 +82,6 @@ Verify that the engine flags ambiguous requirements containing vague keywords (`
 * **Pass Criteria**:
   * Yellow warning banner displayed in UI: `⚠️ Ambiguity Detected: ambiguous_term:appropriate`.
   * Confidence score reduced to `0.75` due to subjective keyword `appropriate`.
-
 ---
 
 ## 🧪 Test Scenario 3: Structured Excel Table Mapping (`TestCasesForReference.xlsx`)

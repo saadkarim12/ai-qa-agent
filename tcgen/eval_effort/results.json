@@ -1,0 +1,222 @@
+{
+ "results": {
+  "opus-quick": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 9,
+    "derived": 8,
+    "cost": 0.051329,
+    "seconds": 18.6,
+    "tokens_in": 3637,
+    "tokens_out": 1968,
+    "coverage": 1.0,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-007",
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-004",
+     "TC-LOGIN-007 no access without login": "TC-LOGIN-009",
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-008"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Require the password field"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "boundary",
+      "Verify credentials are case sensitive"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 11,
+    "derived": 10,
+    "cost": 0.067679,
+    "seconds": 23.1,
+    "tokens_in": 3637,
+    "tokens_out": 2622,
+    "coverage": 0.875,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-007",
+     "TC-LOGIN-006 locked-out user": null,
+     "TC-LOGIN-007 no access without login": "TC-LOGIN-010",
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-008"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password is empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both fields are empty"
+     ],
+     [
+      "TC-LOGIN-009",
+      "derived",
+      "negative",
+      "Verify credentials are case-sensitive"
+     ],
+     [
+      "TC-LOGIN-011",
+      "derived",
+      "ui",
+      "Verify the error message can be dismissed or cleared on a new attempt"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 9,
+    "derived": 7,
+    "cost": 0.077065,
+    "seconds": 18.2,
+    "tokens_in": 4571,
+    "tokens_out": 1943,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-003",
+     "TC-CART-003 product details in cart": "TC-CART-002",
+     "TC-CART-004 remove product": "TC-CART-001",
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-004",
+      "derived",
+      "positive",
+      "Add a product to the cart from the product detail page"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "state-transition",
+      "Remove a product that was added to the cart"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "boundary",
+      "Adding the same product does not create duplicate entries"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "permission",
+      "Cart page is not accessible without being logged in"
+     ],
+     [
+      "TC-CART-009",
+      "derived",
+      "navigation",
+      "Proceed to checkout with a product in the cart"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 10,
+    "derived": 7,
+    "cost": 0.058069,
+    "seconds": 21.1,
+    "tokens_in": 4571,
+    "tokens_out": 2220,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-003",
+     "TC-CART-003 product details in cart": "TC-CART-002",
+     "TC-CART-004 remove product": "TC-CART-001",
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-004",
+      "derived",
+      "positive",
+      "Add a product to the cart from the product detail page"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "state-transition",
+      "Remove a previously added product from the Products page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "state-transition",
+      "Cart contents persist after logout and login again"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "permission",
+      "Prevent access to the cart page without being logged in"
+     ],
+     [
+      "TC-CART-009",
+      "derived",
+      "boundary",
+      "Adding the same product twice is not possible from the Products page"
+     ],
+     [
+      "TC-CART-010",
+      "stated",
+      "navigation",
+      "Proceed to checkout from a cart containing a product"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   }
+  ]
+ },
+ "summary": [
+  {
+   "model": "opus-quick",
+   "id": "claude-opus-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.96875,
+   "grounding": 0,
+   "format": 0,
+   "cases": 9.75,
+   "cost": 0.0635355,
+   "seconds": 20.25,
+   "passes": true
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+# Test Cases
+
+- **Site:** https://www.saucedemo.com/
+- **Generated:** 27 Sep 2026 14:04
+- **Model:** claude-opus-5
+- **Stories:** 1 · **Test cases:** 12
+- **Status:** every test case is Draft until a QA engineer reviews it
+
+## US-1 — User Login
+
+> User Story 1 — User Login
+> As a registered user
+> I want to log in to the website using valid credentials
+> So that I can access the application.
+
+| Test ID | Source | Objective | Preconditions | Steps | Test Data | Expected Result | Risk | Priority | Evidence Requirements | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| TC-LOGIN-001 | US-1 · stated (positive) | Log in successfully with valid credentials | Browser is open<br>User is not logged in | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `standard_user` in the username field<br>3. Enter `secret_sauce` in the password field<br>4. Click the login button<br>5. Verify the products page is displayed | username = `standard_user`<br>password = `secret_sauce` | User is logged in and the products page of the application is displayed | Critical | P1 | Screenshot of the page after login<br>Browser URL after login | Draft |
+| TC-LOGIN-002 | US-1 · derived (negative) | Reject login with a valid username and an incorrect password | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `standard_user` in the username field<br>2. Enter `<incorrect password>` in the password field<br>3. Click the login button<br>4. Verify the user remains on the login page | username = `standard_user`<br>password = `<incorrect password>` | Login is refused, an appropriate error message is displayed and the user stays on the login page | Critical | P1 | Screenshot of the error message | Draft |
+| TC-LOGIN-003 | US-1 · derived (negative) | Reject login with an unregistered username | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `<unregistered username>` in the username field<br>2. Enter `secret_sauce` in the password field<br>3. Click the login button<br>4. Verify the user remains on the login page | username = `<unregistered username>`<br>password = `secret_sauce` | Login is refused, an appropriate error message is displayed and no access to the application is granted | Critical | P1 | Screenshot of the error message | Draft |
+| TC-LOGIN-004 | US-1 · derived (required-field) | Reject login when the username field is left empty | User is on the login page at `https://www.saucedemo.com/` | 1. Leave the username field empty<br>2. Enter `secret_sauce` in the password field<br>3. Click the login button<br>4. Verify the user remains on the login page | username = ``<br>password = `secret_sauce` | Login is not performed and an appropriate error message about the missing username is displayed | High | P2 | Screenshot of the error message | Draft |
+| TC-LOGIN-005 | US-1 · derived (required-field) | Reject login when the password field is left empty | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `standard_user` in the username field<br>2. Leave the password field empty<br>3. Click the login button<br>4. Verify the user remains on the login page | username = `standard_user`<br>password = `` | Login is not performed and an appropriate error message about the missing password is displayed | High | P2 | Screenshot of the error message | Draft |
+| TC-LOGIN-006 | US-1 · derived (required-field) | Reject login when both fields are left empty | User is on the login page at `https://www.saucedemo.com/` | 1. Leave the username field empty<br>2. Leave the password field empty<br>3. Click the login button<br>4. Verify the user remains on the login page | username = ``<br>password = `` | Login is not performed and an appropriate error message about the missing credentials is displayed | Medium | P3 | Screenshot of the error message | Draft |
+| TC-LOGIN-007 | US-1 · derived (negative) | Verify credentials are treated as case sensitive | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `STANDARD_USER` in the username field<br>2. Enter `SECRET_SAUCE` in the password field<br>3. Click the login button<br>4. Verify the user remains on the login page | username = `STANDARD_USER`<br>password = `SECRET_SAUCE` | Login is refused and an appropriate error message is displayed, confirming credentials are case sensitive | Medium | P3 | Screenshot of the error message | Draft |
+| TC-LOGIN-008 | US-1 · derived (ui) | Verify the password is masked while typing | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `secret_sauce` in the password field<br>2. Verify the typed characters are not shown in clear text | password = `secret_sauce` | The password characters are masked in the password field | Medium | P3 | Screenshot of the password field with text entered | Draft |
+| TC-LOGIN-009 | US-1 · derived (security) | Verify the login form is not vulnerable to SQL injection input | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `' OR '1'='1` in the username field<br>2. Enter `' OR '1'='1` in the password field<br>3. Click the login button<br>4. Verify the user remains on the login page | username = `' OR '1'='1`<br>password = `' OR '1'='1` | Login is refused, an appropriate error message is displayed and no access to the application is granted | Critical | P2 | Screenshot of the page after submitting<br>Browser URL after submitting | Draft |
+| TC-LOGIN-010 | US-1 · derived (security) | Verify script input in the login fields is not executed | User is on the login page at `https://www.saucedemo.com/` | 1. Enter `<script>alert(1)</script>` in the username field<br>2. Enter `<script>alert(1)</script>` in the password field<br>3. Click the login button<br>4. Verify no script is executed and no alert dialog appears | username = `<script>alert(1)</script>`<br>password = `<script>alert(1)</script>` | Input is handled safely as plain text, login is refused and an appropriate error message is displayed | High | P3 | Screenshot of the page after submitting | Draft |
+| TC-LOGIN-011 | US-1 · derived (security) | Prevent access to the application without logging in | User is not logged in<br>No active session exists in the browser | 1. Navigate to the products page URL directly<br>2. Verify the products page content is not displayed | products page URL = `<products page URL>` | Access is blocked and the user is kept on or redirected to the login page with an appropriate error message | Critical | P2 | Screenshot of the resulting page<br>Browser URL after navigation | Draft |
+| TC-LOGIN-012 | US-1 · derived (state-transition) | Verify the user can log out after a successful login | User is logged in with `standard_user` / `secret_sauce` | 1. Open the menu containing the logout option<br>2. Click the logout option<br>3. Verify the login page is displayed | username = `standard_user`<br>password = `secret_sauce` | The session is ended and the user is returned to the login page | High | P3 | Screenshot of the login page after logout | Draft |
+
+**Check before running**
+
+- TC-LOGIN-007 — grounding: test data username = `STANDARD_USER` is not in the story or the examples
+- TC-LOGIN-007 — grounding: test data password = `SECRET_SAUCE` is not in the story or the examples
+- TC-LOGIN-009 — grounding: test data username = `' OR '1'='1` is not in the story or the examples
+- TC-LOGIN-009 — grounding: test data password = `' OR '1'='1` is not in the story or the examples
+- TC-LOGIN-010 — grounding: test data username = `<script>alert(1)</script>` is not in the story or the examples
+- TC-LOGIN-010 — grounding: test data password = `<script>alert(1)</script>` is not in the story or the examples

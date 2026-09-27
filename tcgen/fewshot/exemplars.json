@@ -1,0 +1,577 @@
+{
+  "_about": "Few-shot exemplars for the test case generator. Stories and test cases come from 'Sample US-TC.xlsx' supplied by the user (sheets US1, TC1, US2, TC2). The user's rows had TC ID, Description, Test Data, Actual Result, Expected Result and Status. They were converted to the BRD 12.2 format (+ Test Data) by hand: Steps, Risk, Priority and Evidence were written from each row's description and test data, using UI labels observed on the live site on 2026-09-27 (Username, Password, Login button, Products page, Add to cart, cart icon). Actual Result is not carried over: it is filled in when the test runs.",
+  "_corrections": [
+    {
+      "applies_to": "US-1",
+      "text": "TC-LOGIN-008 test data reads \" OR '1'='1\" in the spreadsheet. Excel treats a leading apostrophe as a text marker and hides it, so the intended value is \"' OR '1'='1\"."
+    }
+  ],
+  "raw_rows": {
+    "US1": [
+      [
+        "Site URL: https://www.saucedemo.com/"
+      ],
+      [
+        "User Story 1 — User Login"
+      ],
+      [
+        "As a registered user"
+      ],
+      [
+        "I want to log in to the website using valid credentials"
+      ],
+      [
+        "So that I can access the application."
+      ]
+    ],
+    "TC1": [
+      [
+        "TC ID",
+        "Description",
+        "Test Data",
+        "Actual Result",
+        "Expected Result",
+        "Status"
+      ],
+      [
+        "TC-LOGIN-001",
+        "Login with valid credentials",
+        "standard_user / secret_sauce",
+        "user is landaded on products pages",
+        "User successfully logs in and is redirected to the Products page",
+        ""
+      ],
+      [
+        "TC-LOGIN-002",
+        "Login with invalid password",
+        "standard_user / wrong_password",
+        "Following message is shown  \"Epic sadface: Username and password do not match any user in this service\"",
+        "Login fails and an appropriate error message is displayed",
+        ""
+      ],
+      [
+        "TC-LOGIN-003",
+        "Login with invalid username",
+        "invalid_user / secret_sauce",
+        "Following message is shown  \"Epic sadface: Username and password do not match any user in this service\"",
+        "Login fails and an appropriate error message is displayed",
+        ""
+      ],
+      [
+        "TC-LOGIN-004",
+        "Login with empty credentials",
+        "Username & Password blank",
+        "Following message is shown \"Epic sadface: Username is required\"",
+        "Validation/error message is displayed and login is not completed",
+        ""
+      ],
+      [
+        "TC-LOGIN-005",
+        "Verify password masking",
+        "Enter any password",
+        "Password is displayed as masked characters",
+        "Password is displayed as masked characters",
+        ""
+      ],
+      [
+        "TC-LOGIN-006",
+        "Login with locked-out user",
+        "locked_out_user / secret_sauce",
+        "Following message is shown \"Epic sadface: Sorry, this user has been locked out.\"",
+        "Login is blocked and an appropriate locked-out user error message is displayed",
+        ""
+      ],
+      [
+        "TC-LOGIN-007",
+        "Verify user cannot access Products page without authentication",
+        "Directly navigate to Products URL without login https://www.saucedemo.com/inventory.html",
+        "Following message is shown \"Epic sadface: You can only access '/cart.html' when you are logged in.\"",
+        "User is redirected to the login page or access is denied",
+        ""
+      ],
+      [
+        "TC-LOGIN-008",
+        "Verify login with SQL injection-style username",
+        " OR '1'='1 / secret_sauce",
+        "Following message is shown \"Epic sadface: Username and password do not match any user in this service\"",
+        "Login fails safely and no unauthorized access is granted",
+        ""
+      ]
+    ],
+    "US2": [
+      [
+        "Site URL: https://www.saucedemo.com/"
+      ],
+      [
+        "As a logged-in user"
+      ],
+      [
+        "I want to add a product to my shopping cart"
+      ],
+      [
+        "So that I can purchase the selected product."
+      ]
+    ],
+    "TC2": [
+      [
+        "TC ID",
+        "Description",
+        "Test Data",
+        "Actual Result",
+        "Expected Result"
+      ],
+      [
+        "TC-CART-001",
+        "Add a single product to cart",
+        "User is logged in",
+        "Selected product is added and cart count becomes 1",
+        "Selected product is added and cart count becomes 1"
+      ],
+      [
+        "TC-CART-002",
+        "Add multiple products to cart",
+        "User is logged in",
+        "All selected products are added and cart count reflects the correct quantity",
+        "All selected products are added and cart count reflects the correct quantity"
+      ],
+      [
+        "TC-CART-003",
+        "Verify product details in cart",
+        "Product has been added",
+        "Cart displays the correct product name, price, and quantity",
+        "Cart displays the correct product name, price, and quantity"
+      ],
+      [
+        "TC-CART-004",
+        "Remove product from cart",
+        "Product exists in cart",
+        "Product is removed and cart count is updated correctly",
+        "Product is removed and cart count is updated correctly"
+      ],
+      [
+        "TC-CART-005",
+        "Add product, navigate away, and return to cart",
+        "Product has been added",
+        "Selected product remains in the cart with correct details",
+        "Selected product remains in the cart with correct details"
+      ]
+    ]
+  },
+  "exemplars": [
+    {
+      "story": {
+        "id": "US-1",
+        "title": "User Login",
+        "site_url": "https://www.saucedemo.com/",
+        "text": "User Story 1 — User Login\nAs a registered user\nI want to log in to the website using valid credentials\nSo that I can access the application."
+      },
+      "area_code": "LOGIN",
+      "cases": [
+        {
+          "objective": "Log in with valid credentials",
+          "derivation": "stated",
+          "category": "positive",
+          "preconditions": [
+            "A registered account exists",
+            "User is not logged in"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Enter `standard_user` in the Username field",
+            "Enter `secret_sauce` in the Password field",
+            "Click the Login button",
+            "Verify the Products page is displayed"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "User successfully logs in and is redirected to the Products page",
+          "risk": "Critical",
+          "priority": "P1",
+          "evidence_requirements": [
+            "Screenshot of the Products page",
+            "Final page URL"
+          ]
+        },
+        {
+          "objective": "Reject login with an invalid password",
+          "derivation": "derived",
+          "category": "negative",
+          "preconditions": [
+            "User is not logged in"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Enter `standard_user` in the Username field",
+            "Enter `wrong_password` in the Password field",
+            "Click the Login button",
+            "Verify an error message is displayed",
+            "Verify the user remains on the login page"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "wrong_password"
+            }
+          ],
+          "expected_result": "Login fails and an appropriate error message is displayed",
+          "risk": "High",
+          "priority": "P1",
+          "evidence_requirements": [
+            "Screenshot of the error message"
+          ]
+        },
+        {
+          "objective": "Reject login with an invalid username",
+          "derivation": "derived",
+          "category": "negative",
+          "preconditions": [
+            "User is not logged in"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Enter `invalid_user` in the Username field",
+            "Enter `secret_sauce` in the Password field",
+            "Click the Login button",
+            "Verify an error message is displayed"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "invalid_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Login fails and an appropriate error message is displayed",
+          "risk": "High",
+          "priority": "P2",
+          "evidence_requirements": [
+            "Screenshot of the error message"
+          ]
+        },
+        {
+          "objective": "Require username and password before login",
+          "derivation": "derived",
+          "category": "required-field",
+          "preconditions": [
+            "User is not logged in"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Leave the Username and Password fields blank",
+            "Click the Login button",
+            "Verify a validation message is displayed"
+          ],
+          "test_data": [],
+          "expected_result": "Validation/error message is displayed and login is not completed",
+          "risk": "Medium",
+          "priority": "P2",
+          "evidence_requirements": [
+            "Screenshot of the validation message"
+          ]
+        },
+        {
+          "objective": "Mask the password as it is typed",
+          "derivation": "derived",
+          "category": "ui",
+          "preconditions": [
+            "User is on the login page"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Enter `<any password>` in the Password field",
+            "Verify the Password field shows masked characters"
+          ],
+          "test_data": [
+            {
+              "name": "password",
+              "value": "<any password>"
+            }
+          ],
+          "expected_result": "Password is displayed as masked characters",
+          "risk": "Medium",
+          "priority": "P3",
+          "evidence_requirements": [
+            "Screenshot of the Password field"
+          ]
+        },
+        {
+          "objective": "Block login for a locked-out user",
+          "derivation": "derived",
+          "category": "negative",
+          "preconditions": [
+            "The account is locked out"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Enter `locked_out_user` in the Username field",
+            "Enter `secret_sauce` in the Password field",
+            "Click the Login button",
+            "Verify a locked-out error message is displayed"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "locked_out_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Login is blocked and an appropriate locked-out user error message is displayed",
+          "risk": "High",
+          "priority": "P1",
+          "evidence_requirements": [
+            "Screenshot of the error message"
+          ]
+        },
+        {
+          "objective": "Prevent access to the Products page without logging in",
+          "derivation": "derived",
+          "category": "permission",
+          "preconditions": [
+            "User is not logged in"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/inventory.html",
+            "Verify the Products page is not displayed",
+            "Verify the user is redirected to the login page or access is denied"
+          ],
+          "test_data": [
+            {
+              "name": "url",
+              "value": "https://www.saucedemo.com/inventory.html"
+            }
+          ],
+          "expected_result": "User is redirected to the login page or access is denied",
+          "risk": "Critical",
+          "priority": "P1",
+          "evidence_requirements": [
+            "Screenshot of the resulting page",
+            "Final page URL"
+          ]
+        },
+        {
+          "objective": "Reject an SQL injection-style username",
+          "derivation": "derived",
+          "category": "security",
+          "preconditions": [
+            "User is not logged in"
+          ],
+          "steps": [
+            "Navigate to https://www.saucedemo.com/",
+            "Enter `' OR '1'='1` in the Username field",
+            "Enter `secret_sauce` in the Password field",
+            "Click the Login button",
+            "Verify an error message is displayed",
+            "Verify the Products page is not displayed"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "' OR '1'='1"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Login fails safely and no unauthorized access is granted",
+          "risk": "Critical",
+          "priority": "P1",
+          "evidence_requirements": [
+            "Screenshot of the error message",
+            "Final page URL"
+          ]
+        }
+      ],
+      "raw_sheets": [
+        "US1",
+        "TC1"
+      ]
+    },
+    {
+      "story": {
+        "id": "US-2",
+        "title": "Add Product to Cart",
+        "site_url": "https://www.saucedemo.com/",
+        "text": "As a logged-in user\nI want to add a product to my shopping cart\nSo that I can purchase the selected product."
+      },
+      "area_code": "CART",
+      "cases": [
+        {
+          "objective": "Add a single product to the cart",
+          "derivation": "stated",
+          "category": "positive",
+          "preconditions": [
+            "User is logged in and on the Products page"
+          ],
+          "steps": [
+            "Click Add to cart on one product",
+            "Verify the cart count shows 1"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Selected product is added and cart count becomes 1",
+          "risk": "High",
+          "priority": "P1",
+          "evidence_requirements": [
+            "Screenshot of the cart count"
+          ]
+        },
+        {
+          "objective": "Add multiple products to the cart",
+          "derivation": "derived",
+          "category": "positive",
+          "preconditions": [
+            "User is logged in and on the Products page",
+            "The cart is empty"
+          ],
+          "steps": [
+            "Click Add to cart on `<number of products>` different products",
+            "Verify the cart count equals the number of products added"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            },
+            {
+              "name": "products_to_add",
+              "value": "<number of products>"
+            }
+          ],
+          "expected_result": "All selected products are added and cart count reflects the correct quantity",
+          "risk": "High",
+          "priority": "P2",
+          "evidence_requirements": [
+            "Screenshot of the cart count"
+          ]
+        },
+        {
+          "objective": "Show correct product details in the cart",
+          "derivation": "derived",
+          "category": "positive",
+          "preconditions": [
+            "User is logged in",
+            "A product has been added to the cart"
+          ],
+          "steps": [
+            "Click the cart icon",
+            "Verify the product name matches the product added",
+            "Verify the product price matches the product added",
+            "Verify the quantity is correct"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Cart displays the correct product name, price, and quantity",
+          "risk": "High",
+          "priority": "P2",
+          "evidence_requirements": [
+            "Screenshot of the cart page"
+          ]
+        },
+        {
+          "objective": "Remove a product from the cart",
+          "derivation": "derived",
+          "category": "state-transition",
+          "preconditions": [
+            "User is logged in",
+            "A product exists in the cart"
+          ],
+          "steps": [
+            "Click the cart icon",
+            "Click Remove on the product",
+            "Verify the product is no longer listed",
+            "Verify the cart count is updated"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Product is removed and cart count is updated correctly",
+          "risk": "Medium",
+          "priority": "P2",
+          "evidence_requirements": [
+            "Screenshot of the cart before and after removal"
+          ]
+        },
+        {
+          "objective": "Keep cart contents after navigating away",
+          "derivation": "derived",
+          "category": "state-transition",
+          "preconditions": [
+            "User is logged in",
+            "A product has been added to the cart"
+          ],
+          "steps": [
+            "Navigate away from the cart to the Products page",
+            "Click the cart icon",
+            "Verify the product is still listed with correct details"
+          ],
+          "test_data": [
+            {
+              "name": "username",
+              "value": "standard_user"
+            },
+            {
+              "name": "password",
+              "value": "secret_sauce"
+            }
+          ],
+          "expected_result": "Selected product remains in the cart with correct details",
+          "risk": "Medium",
+          "priority": "P3",
+          "evidence_requirements": [
+            "Screenshot of the cart page"
+          ]
+        }
+      ],
+      "raw_sheets": [
+        "US2",
+        "TC2"
+      ]
+    }
+  ]
+}

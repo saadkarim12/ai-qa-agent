@@ -1,0 +1,731 @@
+{
+ "results": {
+  "haiku": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 9,
+    "derived": 8,
+    "cost": 0.008991,
+    "seconds": 12.8,
+    "tokens_in": 2861,
+    "tokens_out": 1226,
+    "coverage": 0.625,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-003",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-002",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-005",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-008",
+     "TC-LOGIN-006 locked-out user": null,
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": null
+    },
+    "extra": [
+     [
+      "TC-LOGIN-004",
+      "derived",
+      "negative",
+      "Display error message when both credentials are invalid"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Display error message when password field is empty"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "required-field",
+      "Display error message when both fields are empty"
+     ],
+     [
+      "TC-LOGIN-009",
+      "derived",
+      "positive",
+      "Log in as a different user account"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `problem_user` is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 8,
+    "derived": 7,
+    "cost": 0.008461,
+    "seconds": 7.7,
+    "tokens_in": 2861,
+    "tokens_out": 1120,
+    "coverage": 0.625,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-003",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-002",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": null,
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-008",
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": null
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login with missing password"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login with both username and password missing"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "ui",
+      "Clear username field without affecting password"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `locked_out_user` is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 8,
+    "derived": 7,
+    "cost": 0.009354,
+    "seconds": 9.7,
+    "tokens_in": 3599,
+    "tokens_out": 1151,
+    "coverage": 0.6,
+    "matched": {
+     "TC-CART-001 add single product": null,
+     "TC-CART-002 add multiple products": "TC-CART-002",
+     "TC-CART-003 product details in cart": "TC-CART-008",
+     "TC-CART-004 remove product": null,
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-001",
+      "stated",
+      "positive",
+      "Add a product to the shopping cart"
+     ],
+     [
+      "TC-CART-003",
+      "derived",
+      "positive",
+      "Add the same product to the shopping cart multiple times"
+     ],
+     [
+      "TC-CART-004",
+      "derived",
+      "ui",
+      "Verify Add to Cart button changes after adding a product"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "permission",
+      "Prevent adding a product to cart when not logged in"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "navigation",
+      "Add a product to cart and view cart contents"
+     ]
+    ],
+    "grounding": [],
+    "format": [
+     "format: step 1 starts with 'Locate', not a recognised action verb",
+     "format: step 1 starts with 'Add', not a recognised action verb",
+     "format: step 3 starts with 'Return', not a recognised action verb",
+     "format: step 1 starts with 'Add', not a recognised action verb"
+    ]
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 9,
+    "derived": 8,
+    "cost": 0.010349,
+    "seconds": 10.4,
+    "tokens_in": 3599,
+    "tokens_out": 1350,
+    "coverage": 0.8,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-004",
+     "TC-CART-002 add multiple products": "TC-CART-002",
+     "TC-CART-003 product details in cart": null,
+     "TC-CART-004 remove product": "TC-CART-003",
+     "TC-CART-005 persists after navigating": "TC-CART-007"
+    },
+    "extra": [
+     [
+      "TC-CART-001",
+      "stated",
+      "positive",
+      "Add a product to the shopping cart"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "permission",
+      "Prevent adding a product when not logged in"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "positive",
+      "Add the same product to cart multiple times"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "boundary",
+      "Add a product with special characters or edge case names"
+     ],
+     [
+      "TC-CART-009",
+      "derived",
+      "ui",
+      "Verify Add to Cart button is only available on the Products page"
+     ]
+    ],
+    "grounding": [],
+    "format": [
+     "format: step 1 starts with 'Add', not a recognised action verb",
+     "format: step 3 starts with 'Return', not a recognised action verb",
+     "format: step 1 starts with 'Identify', not a recognised action verb"
+    ]
+   }
+  ],
+  "sonnet": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 11,
+    "derived": 10,
+    "cost": 0.0352555,
+    "seconds": 21.0,
+    "tokens_in": 3492,
+    "tokens_out": 2656,
+    "coverage": 0.875,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-005",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-010",
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-008",
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-009"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-004",
+      "derived",
+      "negative",
+      "Reject login with both invalid username and password"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login attempt with empty password field"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "required-field",
+      "Reject login attempt with both fields empty"
+     ],
+     [
+      "TC-LOGIN-011",
+      "derived",
+      "boundary",
+      "Reject login with excessively long username input"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `locked_out_user` is not in the story or the examples",
+     "grounding: test data username = `' OR '1'='1` is not in the story or the examples",
+     "grounding: test data password = `' OR '1'='1` is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 12,
+    "derived": 11,
+    "cost": 0.034802599999999996,
+    "seconds": 26.3,
+    "tokens_in": 3492,
+    "tokens_out": 3398,
+    "coverage": 0.875,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-003",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-002",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-005",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-012",
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-008",
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-009"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-004",
+      "derived",
+      "negative",
+      "Reject login with both invalid username and password"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login with empty password field"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "required-field",
+      "Reject login with both username and password fields empty"
+     ],
+     [
+      "TC-LOGIN-010",
+      "derived",
+      "boundary",
+      "Reject login attempt with excessively long username input"
+     ],
+     [
+      "TC-LOGIN-011",
+      "derived",
+      "ui",
+      "Verify presence and labeling of login page elements"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `locked_out_user` is not in the story or the examples",
+     "grounding: test data username = `' OR '1'='1` is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 8,
+    "derived": 6,
+    "cost": 0.0366335,
+    "seconds": 21.5,
+    "tokens_in": 4426,
+    "tokens_out": 2560,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-002",
+     "TC-CART-003 product details in cart": "TC-CART-005",
+     "TC-CART-004 remove product": "TC-CART-001",
+     "TC-CART-005 persists after navigating": "TC-CART-004"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "stated",
+      "positive",
+      "Verify cart contents match the products added"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "positive",
+      "Add a product to the cart directly from the product details page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "permission",
+      "Prevent unauthenticated users from adding products to the cart"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "ui",
+      "Verify cart badge does not display when cart is empty"
+     ]
+    ],
+    "grounding": [
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 7,
+    "derived": 6,
+    "cost": 0.0302686,
+    "seconds": 26.1,
+    "tokens_in": 4426,
+    "tokens_out": 2927,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-002",
+     "TC-CART-003 product details in cart": "TC-CART-005",
+     "TC-CART-004 remove product": "TC-CART-001",
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "derived",
+      "state-transition",
+      "Remove a product from the cart using the Remove button on the Products page"
+     ],
+     [
+      "TC-CART-004",
+      "derived",
+      "navigation",
+      "Add a product to the cart from the product detail page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "boundary",
+      "Verify cart icon badge is absent when the cart is empty"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data product = `Sauce Labs Backpack` is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples",
+     "grounding: test data product1 = `Sauce Labs Backpack` is not in the story or the examples",
+     "grounding: test data product2 = `Sauce Labs Bike Light` is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: test data product = `Sauce Labs Backpack` is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: test data product = `Sauce Labs Backpack` is not in the story or the examples",
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples",
+     "grounding: test data product = `Sauce Labs Backpack` is not in the story or the examples",
+     "grounding: test data product = `Sauce Labs Backpack` is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples"
+    ],
+    "format": []
+   }
+  ],
+  "opus": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 12,
+    "derived": 11,
+    "cost": 0.10078875,
+    "seconds": 31.4,
+    "tokens_in": 3492,
+    "tokens_out": 3162,
+    "coverage": 0.875,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-009",
+     "TC-LOGIN-006 locked-out user": null,
+     "TC-LOGIN-007 no access without login": "TC-LOGIN-011",
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-010"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password field is left empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both fields are left empty"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "negative",
+      "Treat credentials as case-sensitive"
+     ],
+     [
+      "TC-LOGIN-008",
+      "derived",
+      "boundary",
+      "Reject login when credentials are padded with leading and trailing spaces"
+     ],
+     [
+      "TC-LOGIN-012",
+      "derived",
+      "state-transition",
+      "Prevent returning to an authenticated page with the browser back button after logout"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `STANDARD_USER` is not in the story or the examples",
+     "grounding: test data password = `SECRET_SAUCE` is not in the story or the examples",
+     "grounding: test data username = `' OR '1'='1` is not in the story or the examples",
+     "grounding: test data password = `' OR '1'='1` is not in the story or the examples",
+     "grounding: test data protected URL = `https://www.saucedemo.com/inventory.html` is not in the story or the examples",
+     "grounding: URL https://www.saucedemo.com/inventory.html is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 12,
+    "derived": 11,
+    "cost": 0.0765815,
+    "seconds": 28.5,
+    "tokens_in": 3492,
+    "tokens_out": 2981,
+    "coverage": 1.0,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-008",
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-011",
+     "TC-LOGIN-007 no access without login": "TC-LOGIN-011",
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-009"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password field is left empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both fields are left empty"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "negative",
+      "Verify credentials are treated as case sensitive"
+     ],
+     [
+      "TC-LOGIN-010",
+      "derived",
+      "security",
+      "Verify script input in the login fields is not executed"
+     ],
+     [
+      "TC-LOGIN-012",
+      "derived",
+      "state-transition",
+      "Verify the user can log out after a successful login"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `STANDARD_USER` is not in the story or the examples",
+     "grounding: test data password = `SECRET_SAUCE` is not in the story or the examples",
+     "grounding: test data username = `' OR '1'='1` is not in the story or the examples",
+     "grounding: test data password = `' OR '1'='1` is not in the story or the examples",
+     "grounding: test data username = `<script>alert(1)</script>` is not in the story or the examples",
+     "grounding: test data password = `<script>alert(1)</script>` is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 10,
+    "derived": 8,
+    "cost": 0.09758375,
+    "seconds": 27.6,
+    "tokens_in": 4426,
+    "tokens_out": 2800,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-003",
+     "TC-CART-003 product details in cart": "TC-CART-002",
+     "TC-CART-004 remove product": "TC-CART-005",
+     "TC-CART-005 persists after navigating": "TC-CART-005"
+    },
+    "extra": [
+     [
+      "TC-CART-004",
+      "derived",
+      "positive",
+      "Add a product from the product detail page"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "state-transition",
+      "Cart contents persist while browsing back to the Products page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "state-transition",
+      "Cart contents persist after a page refresh"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "permission",
+      "Prevent access to the cart page without being logged in"
+     ],
+     [
+      "TC-CART-009",
+      "derived",
+      "boundary",
+      "Cart is empty for a newly logged-in session with no products added"
+     ],
+     [
+      "TC-CART-010",
+      "derived",
+      "negative",
+      "Add a product using an account known to have degraded behaviour"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data username = `problem_user` is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 8,
+    "derived": 6,
+    "cost": 0.0693215,
+    "seconds": 26.5,
+    "tokens_in": 4426,
+    "tokens_out": 2673,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-002",
+     "TC-CART-002 add multiple products": "TC-CART-004",
+     "TC-CART-003 product details in cart": "TC-CART-002",
+     "TC-CART-004 remove product": "TC-CART-001",
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "derived",
+      "positive",
+      "Add a product to the cart from the product detail page"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "state-transition",
+      "Remove a previously added product from the Products page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "ui",
+      "Cart badge is not displayed when the cart is empty"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "permission",
+      "Prevent access to the cart page without being logged in"
+     ]
+    ],
+    "grounding": [
+     "grounding: test data url = `https://www.saucedemo.com/cart.html` is not in the story or the examples",
+     "grounding: URL https://www.saucedemo.com/cart.html is not in the story or the examples"
+    ],
+    "format": []
+   }
+  ]
+ },
+ "summary": [
+  {
+   "model": "haiku",
+   "id": "claude-haiku-4-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.6625,
+   "grounding": 0.5,
+   "format": 1.75,
+   "cases": 8.5,
+   "cost": 0.00928875,
+   "seconds": 10.15,
+   "passes": false
+  },
+  {
+   "model": "sonnet",
+   "id": "claude-sonnet-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.9375,
+   "grounding": 7.25,
+   "format": 0,
+   "cases": 9.5,
+   "cost": 0.03424005,
+   "seconds": 23.725,
+   "passes": false
+  },
+  {
+   "model": "opus",
+   "id": "claude-opus-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.96875,
+   "grounding": 3.75,
+   "format": 0,
+   "cases": 10.5,
+   "cost": 0.08606887499999999,
+   "seconds": 28.5,
+   "passes": false
+  }
+ ]
+}

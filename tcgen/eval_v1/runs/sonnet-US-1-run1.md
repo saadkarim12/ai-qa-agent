@@ -1,0 +1,34 @@
+# Test Cases
+
+- **Site:** https://www.saucedemo.com/
+- **Generated:** 27 Sep 2026 14:02
+- **Model:** claude-sonnet-5
+- **Stories:** 1 · **Test cases:** 11
+- **Status:** every test case is Draft until a QA engineer reviews it
+
+## US-1 — User Login
+
+> User Story 1 — User Login
+> As a registered user
+> I want to log in to the website using valid credentials
+> So that I can access the application.
+
+| Test ID | Source | Objective | Preconditions | Steps | Test Data | Expected Result | Risk | Priority | Evidence Requirements | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| TC-LOGIN-001 | US-1 · stated (positive) | Log in successfully with valid credentials | User is on the login page<br>https://www.saucedemo.com/ | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `standard_user` in the Username field<br>3. Enter `secret_sauce` in the Password field<br>4. Click the Login button<br>5. Verify the user is redirected to the Products page | username = `standard_user`<br>password = `secret_sauce` | User is logged in and taken to the Products page | Critical | P1 | Screenshot of the Products page after login | Draft |
+| TC-LOGIN-002 | US-1 · derived (negative) | Reject login with invalid password | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `standard_user` in the Username field<br>3. Enter `<invalid password>` in the Password field<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = `standard_user`<br>password = `<invalid password>` | Login is rejected and an appropriate error message is displayed | High | P1 | Screenshot of the error message | Draft |
+| TC-LOGIN-003 | US-1 · derived (negative) | Reject login with invalid username | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `<invalid username>` in the Username field<br>3. Enter `secret_sauce` in the Password field<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = `<invalid username>`<br>password = `secret_sauce` | Login is rejected and an appropriate error message is displayed | High | P1 | Screenshot of the error message | Draft |
+| TC-LOGIN-004 | US-1 · derived (negative) | Reject login with both invalid username and password | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `<invalid username>` in the Username field<br>3. Enter `<invalid password>` in the Password field<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = `<invalid username>`<br>password = `<invalid password>` | Login is rejected and an appropriate error message is displayed | High | P2 | Screenshot of the error message | Draft |
+| TC-LOGIN-005 | US-1 · derived (required-field) | Reject login attempt with empty username field | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Leave the Username field empty<br>3. Enter `secret_sauce` in the Password field<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = ``<br>password = `secret_sauce` | Login is rejected and an appropriate error message about the missing username is displayed | Medium | P2 | Screenshot of the error message | Draft |
+| TC-LOGIN-006 | US-1 · derived (required-field) | Reject login attempt with empty password field | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `standard_user` in the Username field<br>3. Leave the Password field empty<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = `standard_user`<br>password = `` | Login is rejected and an appropriate error message about the missing password is displayed | Medium | P2 | Screenshot of the error message | Draft |
+| TC-LOGIN-007 | US-1 · derived (required-field) | Reject login attempt with both fields empty | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Leave the Username field empty<br>3. Leave the Password field empty<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = ``<br>password = `` | Login is rejected and an appropriate error message about the missing fields is displayed | Medium | P3 | Screenshot of the error message | Draft |
+| TC-LOGIN-008 | US-1 · derived (permission) | Reject login for a locked out user | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `locked_out_user` in the Username field<br>3. Enter `secret_sauce` in the Password field<br>4. Click the Login button<br>5. Verify an appropriate error message indicating the user is locked out is displayed | username = `locked_out_user`<br>password = `secret_sauce` | Login is rejected and an appropriate error message indicating the account is locked out is displayed | High | P1 | Screenshot of the error message | Draft |
+| TC-LOGIN-009 | US-1 · derived (security) | Prevent SQL injection through login fields | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `' OR '1'='1` in the Username field<br>3. Enter `' OR '1'='1` in the Password field<br>4. Click the Login button<br>5. Verify the login is rejected and an appropriate error message is displayed | username = `' OR '1'='1`<br>password = `' OR '1'='1` | Login attempt is rejected without granting access or exposing errors that reveal system internals | Critical | P1 | Screenshot of the error message | Draft |
+| TC-LOGIN-010 | US-1 · derived (ui) | Verify password field masks input | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `secret_sauce` in the Password field<br>3. Verify the entered password characters are masked | password = `secret_sauce` | Password characters are displayed as masked characters rather than plain text | Medium | P3 | Screenshot of the password field | Draft |
+| TC-LOGIN-011 | US-1 · derived (boundary) | Reject login with excessively long username input | User is on the login page | 1. Navigate to `https://www.saucedemo.com/`<br>2. Enter `<very long username string>` in the Username field<br>3. Enter `secret_sauce` in the Password field<br>4. Click the Login button<br>5. Verify an appropriate error message is displayed | username = `<very long username string>`<br>password = `secret_sauce` | Login is rejected and an appropriate error message is displayed without application error | Low | P4 | Screenshot of the error message | Draft |
+
+**Check before running**
+
+- TC-LOGIN-008 — grounding: test data username = `locked_out_user` is not in the story or the examples
+- TC-LOGIN-009 — grounding: test data username = `' OR '1'='1` is not in the story or the examples
+- TC-LOGIN-009 — grounding: test data password = `' OR '1'='1` is not in the story or the examples

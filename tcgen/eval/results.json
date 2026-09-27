@@ -1,0 +1,705 @@
+{
+ "results": {
+  "haiku": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 9,
+    "derived": 8,
+    "cost": 0.009681,
+    "seconds": 12.9,
+    "tokens_in": 2971,
+    "tokens_out": 1342,
+    "coverage": 0.625,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": null,
+     "TC-LOGIN-006 locked-out user": null,
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-008"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login with empty password field"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login with both username and password empty"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "state-transition",
+      "Remain on login page after failed login attempt"
+     ],
+     [
+      "TC-LOGIN-009",
+      "derived",
+      "security",
+      "Prevent SQL injection via password field"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 9,
+    "derived": 8,
+    "cost": 0.008716,
+    "seconds": 10.8,
+    "tokens_in": 2971,
+    "tokens_out": 1149,
+    "coverage": 0.625,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-006",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-005",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-002",
+     "TC-LOGIN-005 password masking": null,
+     "TC-LOGIN-006 locked-out user": null,
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-007"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-003",
+      "derived",
+      "negative",
+      "Login fails with empty password field"
+     ],
+     [
+      "TC-LOGIN-004",
+      "derived",
+      "negative",
+      "Login fails with both username and password empty"
+     ],
+     [
+      "TC-LOGIN-008",
+      "derived",
+      "security",
+      "SQL injection attack in password field is rejected"
+     ],
+     [
+      "TC-LOGIN-009",
+      "derived",
+      "navigation",
+      "Login page is accessible without authentication"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 8,
+    "derived": 7,
+    "cost": 0.010064,
+    "seconds": 10.3,
+    "tokens_in": 3709,
+    "tokens_out": 1271,
+    "coverage": 0.8,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-002",
+     "TC-CART-003 product details in cart": null,
+     "TC-CART-004 remove product": "TC-CART-004",
+     "TC-CART-005 persists after navigating": "TC-CART-004"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "derived",
+      "boundary",
+      "Add the same product to the cart multiple times"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "permission",
+      "Require login to add products to the cart"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "state-transition",
+      "Preserve cart contents when navigating away from the Products page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "ui",
+      "Display feedback when a product is added to the cart"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "boundary",
+      "Handle adding a product when the cart is already at capacity"
+     ]
+    ],
+    "grounding": [],
+    "format": [
+     "format: step 3 starts with 'Return', not a recognised action verb",
+     "format: step 1 starts with 'Add', not a recognised action verb",
+     "format: step 2 starts with 'Attempt', not a recognised action verb"
+    ]
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 7,
+    "derived": 6,
+    "cost": 0.010319,
+    "seconds": 9.1,
+    "tokens_in": 3709,
+    "tokens_out": 1322,
+    "coverage": 0.8,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-004",
+     "TC-CART-003 product details in cart": null,
+     "TC-CART-004 remove product": "TC-CART-003",
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-002",
+      "derived",
+      "ui",
+      "Update the cart count when a product is added"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "boundary",
+      "Add the same product multiple times to the cart"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "security",
+      "Allow an unauthenticated user to attempt adding a product"
+     ]
+    ],
+    "grounding": [],
+    "format": [
+     "format: step 2 starts with 'Note', not a recognised action verb"
+    ]
+   }
+  ],
+  "sonnet": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 10,
+    "derived": 9,
+    "cost": 0.040588,
+    "seconds": 45.0,
+    "tokens_in": 3637,
+    "tokens_out": 3153,
+    "coverage": 0.75,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-003",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-002",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": null,
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-007",
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-008"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password field is empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both username and password fields are empty"
+     ],
+     [
+      "TC-LOGIN-009",
+      "derived",
+      "security",
+      "Reject login attempt using SQL injection payload in the password field"
+     ],
+     [
+      "TC-LOGIN-010",
+      "derived",
+      "boundary",
+      "Verify username field is case sensitive or handled per application rules"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 7,
+    "derived": 6,
+    "cost": 0.0218316,
+    "seconds": 17.3,
+    "tokens_in": 3637,
+    "tokens_out": 2098,
+    "coverage": 0.625,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": null,
+     "TC-LOGIN-006 locked-out user": null,
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-007"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password field is left empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both username and password fields are left empty"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 8,
+    "derived": 7,
+    "cost": 0.038046,
+    "seconds": 23.1,
+    "tokens_in": 4571,
+    "tokens_out": 2665,
+    "coverage": 0.8,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-003",
+     "TC-CART-003 product details in cart": null,
+     "TC-CART-004 remove product": "TC-CART-002",
+     "TC-CART-005 persists after navigating": "TC-CART-008"
+    },
+    "extra": [
+     [
+      "TC-CART-004",
+      "derived",
+      "boundary",
+      "Add all available products to the cart"
+     ],
+     [
+      "TC-CART-005",
+      "derived",
+      "state-transition",
+      "Remove a product from the cart after adding it"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "ui",
+      "Cart badge does not display when the cart is empty"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "permission",
+      "Prevent adding a product to the cart without being logged in"
+     ]
+    ],
+    "grounding": [
+     "grounding: step uses `Add to cart`, which is not in the story or the examples",
+     "grounding: step uses `Remove`, which is not in the story or the examples"
+    ],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 7,
+    "derived": 6,
+    "cost": 0.025087599999999998,
+    "seconds": 22.1,
+    "tokens_in": 4571,
+    "tokens_out": 2406,
+    "coverage": 0.8,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-002",
+     "TC-CART-003 product details in cart": null,
+     "TC-CART-004 remove product": "TC-CART-004",
+     "TC-CART-005 persists after navigating": "TC-CART-005"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "derived",
+      "positive",
+      "Verify an added product appears in the cart page"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "permission",
+      "Prevent adding a product to the cart without being logged in"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "boundary",
+      "Verify adding the same product twice does not duplicate it in the cart"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   }
+  ],
+  "opus": [
+   {
+    "story": "US-1",
+    "run": 1,
+    "ok": true,
+    "cases": 14,
+    "derived": 13,
+    "cost": 0.115095,
+    "seconds": 35.6,
+    "tokens_in": 3637,
+    "tokens_out": 3698,
+    "coverage": 1.0,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-009",
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-012",
+     "TC-LOGIN-007 no access without login": "TC-LOGIN-012",
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-010"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password field is empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both credential fields are empty"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "boundary",
+      "Verify credentials are treated as case sensitive"
+     ],
+     [
+      "TC-LOGIN-008",
+      "derived",
+      "boundary",
+      "Verify surrounding whitespace in the username does not grant access unexpectedly"
+     ],
+     [
+      "TC-LOGIN-011",
+      "derived",
+      "security",
+      "Verify script input in credential fields is not executed"
+     ],
+     [
+      "TC-LOGIN-013",
+      "derived",
+      "permission",
+      "Verify a blocked or disabled account cannot log in"
+     ],
+     [
+      "TC-LOGIN-014",
+      "derived",
+      "state-transition",
+      "Verify the error message is cleared or updated when credentials are corrected after a failed attempt"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-1",
+    "run": 2,
+    "ok": true,
+    "cases": 15,
+    "derived": 14,
+    "cost": 0.102554,
+    "seconds": 37.8,
+    "tokens_in": 3637,
+    "tokens_out": 4017,
+    "coverage": 0.875,
+    "matched": {
+     "TC-LOGIN-001 valid credentials": "TC-LOGIN-001",
+     "TC-LOGIN-002 invalid password": "TC-LOGIN-002",
+     "TC-LOGIN-003 invalid username": "TC-LOGIN-003",
+     "TC-LOGIN-004 empty credentials": "TC-LOGIN-004",
+     "TC-LOGIN-005 password masking": "TC-LOGIN-010",
+     "TC-LOGIN-006 locked-out user": "TC-LOGIN-009",
+     "TC-LOGIN-007 no access without login": null,
+     "TC-LOGIN-008 SQL injection": "TC-LOGIN-011"
+    },
+    "extra": [
+     [
+      "TC-LOGIN-005",
+      "derived",
+      "required-field",
+      "Reject login when the password field is empty"
+     ],
+     [
+      "TC-LOGIN-006",
+      "derived",
+      "required-field",
+      "Reject login when both fields are empty"
+     ],
+     [
+      "TC-LOGIN-007",
+      "derived",
+      "negative",
+      "Reject credentials that differ only by letter case"
+     ],
+     [
+      "TC-LOGIN-008",
+      "derived",
+      "boundary",
+      "Trim-free handling of credentials with leading and trailing spaces"
+     ],
+     [
+      "TC-LOGIN-012",
+      "derived",
+      "security",
+      "Reject script injection input in the username field"
+     ],
+     [
+      "TC-LOGIN-013",
+      "derived",
+      "security",
+      "Prevent access to the authenticated area after logging out via browser back"
+     ],
+     [
+      "TC-LOGIN-014",
+      "derived",
+      "state-transition",
+      "Clear a previous login error after correcting the credentials"
+     ],
+     [
+      "TC-LOGIN-015",
+      "derived",
+      "ui",
+      "Submit the login form with the keyboard"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 1,
+    "ok": true,
+    "cases": 12,
+    "derived": 10,
+    "cost": 0.114415,
+    "seconds": 32.0,
+    "tokens_in": 4571,
+    "tokens_out": 3437,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-004",
+     "TC-CART-003 product details in cart": "TC-CART-002",
+     "TC-CART-004 remove product": "TC-CART-005",
+     "TC-CART-005 persists after navigating": "TC-CART-007"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "derived",
+      "positive",
+      "Add a product to the cart from the product detail page"
+     ],
+     [
+      "TC-CART-006",
+      "derived",
+      "state-transition",
+      "Remove an added product and confirm the cart state reverts"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "state-transition",
+      "Cart contents persist after a page refresh"
+     ],
+     [
+      "TC-CART-009",
+      "derived",
+      "permission",
+      "Prevent access to the cart page without logging in"
+     ],
+     [
+      "TC-CART-010",
+      "derived",
+      "security",
+      "Cart is emptied or not carried over to another user after logout"
+     ],
+     [
+      "TC-CART-011",
+      "derived",
+      "negative",
+      "Adding a product does not change the product price or details shown"
+     ],
+     [
+      "TC-CART-012",
+      "derived",
+      "navigation",
+      "Proceed from the cart towards purchasing the selected product"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   },
+   {
+    "story": "US-2",
+    "run": 2,
+    "ok": true,
+    "cases": 12,
+    "derived": 10,
+    "cost": 0.090794,
+    "seconds": 33.5,
+    "tokens_in": 4571,
+    "tokens_out": 3529,
+    "coverage": 1.0,
+    "matched": {
+     "TC-CART-001 add single product": "TC-CART-001",
+     "TC-CART-002 add multiple products": "TC-CART-004",
+     "TC-CART-003 product details in cart": "TC-CART-002",
+     "TC-CART-004 remove product": "TC-CART-005",
+     "TC-CART-005 persists after navigating": "TC-CART-006"
+    },
+    "extra": [
+     [
+      "TC-CART-003",
+      "derived",
+      "positive",
+      "Add a product to the cart from the product detail page"
+     ],
+     [
+      "TC-CART-007",
+      "derived",
+      "state-transition",
+      "Cart contents persist across logout and login for the same user"
+     ],
+     [
+      "TC-CART-008",
+      "derived",
+      "permission",
+      "Prevent adding a product to the cart without being logged in"
+     ],
+     [
+      "TC-CART-009",
+      "derived",
+      "security",
+      "Prevent access to the cart page without being logged in"
+     ],
+     [
+      "TC-CART-010",
+      "derived",
+      "boundary",
+      "Adding the same product twice does not duplicate it in the cart"
+     ],
+     [
+      "TC-CART-011",
+      "derived",
+      "boundary",
+      "Add all available products to the cart and verify the count"
+     ],
+     [
+      "TC-CART-012",
+      "derived",
+      "ui",
+      "Add to cart works after changing the product sort order"
+     ]
+    ],
+    "grounding": [],
+    "format": []
+   }
+  ]
+ },
+ "summary": [
+  {
+   "model": "haiku",
+   "id": "claude-haiku-4-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.7125,
+   "grounding": 0,
+   "format": 1,
+   "cases": 8.25,
+   "cost": 0.009695,
+   "seconds": 10.775,
+   "passes": false
+  },
+  {
+   "model": "sonnet",
+   "id": "claude-sonnet-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.74375,
+   "grounding": 0.5,
+   "format": 0,
+   "cases": 8,
+   "cost": 0.0313883,
+   "seconds": 26.875,
+   "passes": false
+  },
+  {
+   "model": "opus",
+   "id": "claude-opus-5",
+   "runs": 4,
+   "parsed": 4,
+   "all_parsed": true,
+   "coverage": 0.96875,
+   "grounding": 0,
+   "format": 0,
+   "cases": 13.25,
+   "cost": 0.1057145,
+   "seconds": 34.725,
+   "passes": true
+  }
+ ]
+}

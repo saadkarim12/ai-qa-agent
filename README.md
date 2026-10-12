@@ -4,6 +4,24 @@
 
 Paste or upload user stories, get test cases written by AI, download them as markdown for Playwright.
 
+**QA team:** use the team link and password from your admin. You don't need to install anything or have an API key.
+
+### Hosting it for the team (admin, once)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/saadkarim12/ai-qa-agent)
+
+The button reads [`render.yaml`](render.yaml) and asks for three values, which stay in Render and never touch this repository:
+
+| Setting | Value |
+|---|---|
+| `ANTHROPIC_API_KEY` | your Anthropic key |
+| `ANTHROPIC_WORKSPACE_ID` | your `wrkspc_...` ID (only if the key isn't tied to a workspace) |
+| `TCGEN_PASSWORD` | the password the team will type |
+
+Every push to `main` redeploys. AI spend is capped at $5 a day (`TCGEN_DAILY_USD`); the page refuses to run at all without a password.
+
+### Running it on your own computer
+
 **1. Install (once)**
 
 ```bash

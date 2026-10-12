@@ -141,7 +141,18 @@ class Handler(BaseHTTPRequestHandler):
     def _authorised(self) -> bool:
         password = os.environ.get("TCGEN_PASSWORD")
         if not password:
-            return True
+            if "PORT" not in os.environ:
+                return True  # running on your own computer
+            # Hosted with no password would let anyone with the link spend the
+            # API credit. Refuse rather than warn.
+            body = (b"TCGEN_PASSWORD is not set. Add it in the host's environment "
+                    b"settings and redeploy.")
+            self.send_response(503)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return False
         header = self.headers.get("Authorization", "")
         if header.startswith("Basic "):
             try:
@@ -310,8 +321,7 @@ def main() -> int:
     host = "0.0.0.0" if hosted else "127.0.0.1"
     port = int(os.environ["PORT"]) if hosted else _free_port(8030)
     if hosted and not os.environ.get("TCGEN_PASSWORD"):
-        print("WARNING: TCGEN_PASSWORD is not set - anyone with the URL can spend your API "
-              "credit. Set it before sharing the link.")
+        print("TCGEN_PASSWORD is not set: the page will refuse every request until it is.")
     server = ThreadingHTTPServer((host, port), Handler)
     url = "http://%s:%d" % ("127.0.0.1" if not hosted else host, port)
     print("\n  Test Case Writer  %s" % url)

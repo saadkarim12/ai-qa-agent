@@ -602,3 +602,18 @@ def test_non_standard_step_verbs_are_flagged_as_format():
     case = _case(steps=["Attempt to add a product", "Note the cart count"])
     fmt = [i for i in _issues(case, example_text_for_site(SITE)) if i.startswith("format")]
     assert len(fmt) == 2
+
+
+def test_hosted_without_a_password_refuses_everything(served, monkeypatch):
+    monkeypatch.setenv("PORT", "10000")
+    monkeypatch.delenv("TCGEN_PASSWORD", raising=False)
+    assert _req(served + "/")[0] == 503
+    assert _req(served + "/api/generate", {"stories": USER_FORMAT})[0] == 503
+    assert _req(served + "/healthz")[0] == 200  # the host's health check still works
+
+
+def test_hosted_with_a_password_works(served, monkeypatch):
+    monkeypatch.setenv("PORT", "10000")
+    monkeypatch.setenv("TCGEN_PASSWORD", "team-pass")
+    assert _req(served + "/")[0] == 401
+    assert _req(served + "/", password="team-pass")[0] == 200

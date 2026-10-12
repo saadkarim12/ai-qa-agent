@@ -1,0 +1,24 @@
+# Render Blueprint for the Test Case Writer.
+# Secrets are entered in Render's dashboard when the Blueprint is created;
+# they are never stored in this repository.
+services:
+  - type: web
+    name: test-case-writer
+    runtime: python
+    plan: 0.5c-512mb          # Render's smallest paid plan: always on, no cold starts
+    region: singapore         # closest Render region to the team; can't change later
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m tcgen
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit # every push to main redeploys
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false           # asked for when you create the Blueprint
+      - key: ANTHROPIC_WORKSPACE_ID
+        sync: false
+      - key: TCGEN_PASSWORD
+        sync: false           # the password the QA team types to open the page
+      - key: TCGEN_DAILY_USD
+        value: "5"            # stop generating after $5 of AI usage in a day
+      - key: TCGEN_MODEL
+        value: opus

@@ -141,6 +141,10 @@ tr.defer td{opacity:.45}
     <div id="list"></div>
   </aside>
   <main class="main" id="out">
+    <div style="border:1px solid var(--warn);color:var(--warn);background:rgba(210,153,34,.08);border-radius:9px;padding:12px 15px;margin-bottom:18px;font-size:13px">
+      <b>This is the older rules-only prototype (no AI).</b> To turn user stories into test cases with AI, stop this and run
+      <code style="font-family:ui-monospace,Menlo,monospace">python -m tcgen</code> instead, then open http://127.0.0.1:8030.
+    </div>
     <div class="empty">Pick a fixture on the left, or drop in your own document.</div>
   </main>
 </div>
